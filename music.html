@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="music.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <section id="body">
+    <div id="logo">
+        <div id="logo1">
+        <nav>
+            <div class="circle">
+                <i class="fa-solid fa-angle-left"></i>
+            </div>
+            <div class="circle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </nav>
+        <img id="img" src="https://www.freepnglogos.com/uploads/apple-music-logo-circle-png-28.png" alt="" >
+        <h1>Haan Tu Hai</h1>
+        <div>song by: K.K. and Sonal Chauhan.</div>
+
+        <audio id="song">
+            <source src="music/Haan-Tu-Hai_320(PagalWorldl).mp3" type="audio/mpeg">
+
+        </audio>
+        <input type="range" value="0" id="vol">
+
+        <div id="con">
+            <div><i class="fa-solid fa-backward"></i></div>
+            <div onclick="playPause()"><i class="fa-solid fa-play" id="control"></i></div>
+            <div><i class="fa-solid fa-forward"></i></div>
+        </div>
+        </div>
+
+    </div>
+    </section>
+
+
+    <script>
+        let vol = document.getElementById("vol");
+        let song = document.getElementById("song");
+        let control = document.getElementById("control");
+
+        song.onloadedmetadata = function(){
+            vol.max = song.duration;
+            vol.value = song.currentTime;
+        }
+
+        function playPause(){
+            if(control.classList.contains("fa-pause")){
+               song.pause();
+            control.classList.remove("fa-pause");
+            control.classList.add("fa-play");
+            }
+            else{
+            song.play();
+            control.classList.add("fa-pause");
+            control.classList.remove("fa-play");
+            }
+        }
+
+        if(song.play()){
+            setInterval(()=>{
+                vol.value = song.currentTime;
+            },1500);
+        }
+        vol.onchange = function(){
+            song.play();
+            song.currentTime = vol.value;
+            control.classList.add("fa-pause");
+            control.classList.remove("fa-play");
+        }
+
+    </script>
+
+
+    <script src="./music.js"></script>
+</body>
+</html>
